@@ -727,7 +727,7 @@ static struct snapshot *get_snapshot(struct packed_ref_store *refs)
 }
 
 static int packed_read_raw_ref(struct ref_store *ref_store, const char *refname,
-			       struct object_id *oid, struct strbuf *referent,
+			       struct object_id *oid, struct strbuf *UNUSED(referent),
 			       unsigned int *type, int *failure_errno)
 {
 	struct packed_ref_store *refs =
@@ -1079,7 +1079,8 @@ int packed_refs_is_locked(struct ref_store *ref_store)
 static const char PACKED_REFS_HEADER[] =
 	"# pack-refs with: peeled fully-peeled sorted \n";
 
-static int packed_init_db(struct ref_store *ref_store, struct strbuf *err)
+static int packed_init_db(struct ref_store *UNUSED(ref_store),
+			  struct strbuf *UNUSED(err))
 {
 	/* Nothing to do. */
 	return 0;
@@ -1473,7 +1474,7 @@ failure:
 
 static int packed_transaction_abort(struct ref_store *ref_store,
 				    struct ref_transaction *transaction,
-				    struct strbuf *err)
+				    struct strbuf *UNUSED(err))
 {
 	struct packed_ref_store *refs = packed_downcast(
 			ref_store,
@@ -1512,7 +1513,7 @@ cleanup:
 	return ret;
 }
 
-static int packed_initial_transaction_commit(struct ref_store *ref_store,
+static int packed_initial_transaction_commit(struct ref_store *UNUSED(ref_store),
 					    struct ref_transaction *transaction,
 					    struct strbuf *err)
 {
@@ -1568,7 +1569,8 @@ static int packed_delete_refs(struct ref_store *ref_store, const char *msg,
 	return ret;
 }
 
-static int packed_pack_refs(struct ref_store *ref_store, unsigned int flags)
+static int packed_pack_refs(struct ref_store *UNUSED(ref_store),
+			    unsigned int UNUSED(flags))
 {
 	/*
 	 * Packed refs are already packed. It might be that loose refs
@@ -1578,76 +1580,81 @@ static int packed_pack_refs(struct ref_store *ref_store, unsigned int flags)
 	return 0;
 }
 
-static int packed_create_symref(struct ref_store *ref_store,
-			       const char *refname, const char *target,
-			       const char *logmsg)
+static int packed_create_symref(struct ref_store *UNUSED(ref_store),
+			       const char *UNUSED(refname),
+			       const char *UNUSED(target),
+			       const char *UNUSED(logmsg))
 {
 	BUG("packed reference store does not support symrefs");
 }
 
-static int packed_rename_ref(struct ref_store *ref_store,
-			    const char *oldrefname, const char *newrefname,
-			    const char *logmsg)
+static int packed_rename_ref(struct ref_store *UNUSED(ref_store),
+			    const char *UNUSED(oldrefname),
+			    const char *UNUSED(newrefname),
+			    const char *UNUSED(logmsg))
 {
 	BUG("packed reference store does not support renaming references");
 }
 
-static int packed_copy_ref(struct ref_store *ref_store,
-			   const char *oldrefname, const char *newrefname,
-			   const char *logmsg)
+static int packed_copy_ref(struct ref_store *UNUSED(ref_store),
+			   const char *UNUSED(oldrefname),
+			   const char *UNUSED(newrefname),
+			   const char *UNUSED(logmsg))
 {
 	BUG("packed reference store does not support copying references");
 }
 
-static struct ref_iterator *packed_reflog_iterator_begin(struct ref_store *ref_store)
+static struct ref_iterator *packed_reflog_iterator_begin(struct ref_store *UNUSED(ref_store))
 {
 	return empty_ref_iterator_begin();
 }
 
-static int packed_for_each_reflog_ent(struct ref_store *ref_store,
-				      const char *refname,
-				      each_reflog_ent_fn fn, void *cb_data)
+static int packed_for_each_reflog_ent(struct ref_store *UNUSED(ref_store),
+				      const char *UNUSED(refname),
+				      each_reflog_ent_fn UNUSED(fn),
+				      void *UNUSED(cb_data))
 {
 	BUG("packed reference store does not support reflogs");
 	return 0;
 }
 
-static int packed_for_each_reflog_ent_reverse(struct ref_store *ref_store,
-					      const char *refname,
-					      each_reflog_ent_fn fn,
-					      void *cb_data)
+static int packed_for_each_reflog_ent_reverse(struct ref_store *UNUSED(ref_store),
+					      const char *UNUSED(refname),
+					      each_reflog_ent_fn UNUSED(fn),
+					      void *UNUSED(cb_data))
 {
 	BUG("packed reference store does not support reflogs");
 	return 0;
 }
 
-static int packed_reflog_exists(struct ref_store *ref_store,
-			       const char *refname)
+static int packed_reflog_exists(struct ref_store *UNUSED(ref_store),
+			       const char *UNUSED(refname))
 {
 	BUG("packed reference store does not support reflogs");
 	return 0;
 }
 
-static int packed_create_reflog(struct ref_store *ref_store,
-				const char *refname, struct strbuf *err)
+static int packed_create_reflog(struct ref_store *UNUSED(ref_store),
+			       const char *UNUSED(refname),
+			       struct strbuf *UNUSED(err))
 {
 	BUG("packed reference store does not support reflogs");
 }
 
-static int packed_delete_reflog(struct ref_store *ref_store,
-			       const char *refname)
+static int packed_delete_reflog(struct ref_store *UNUSED(ref_store),
+			       const char *UNUSED(refname))
 {
 	BUG("packed reference store does not support reflogs");
 	return 0;
 }
 
-static int packed_reflog_expire(struct ref_store *ref_store,
-				const char *refname,
-				unsigned int flags,
-				reflog_expiry_prepare_fn prepare_fn,
-				reflog_expiry_should_prune_fn should_prune_fn,
-				reflog_expiry_cleanup_fn cleanup_fn,
-				void *policy_cb_data)
+static int packed_reflog_expire(struct ref_store *UNUSED(ref_store),
+				const char *UNUSED(refname),
+				unsigned int UNUSED(flags),
+				reflog_expiry_prepare_fn UNUSED(prepare_fn),
+				reflog_expiry_should_prune_fn UNUSED(should_prune_fn),
+				reflog_expiry_cleanup_fn UNUSED(cleanup_fn),
+				void *UNUSED(policy_cb_data))
 {
 	BUG("packed reference store does not support reflogs");
 	return 0;
