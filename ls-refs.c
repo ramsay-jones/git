@@ -197,7 +197,7 @@ int ls_refs(struct repository *UNUSED(r), struct packet_reader *request)
 	return 0;
 }
 
-int ls_refs_advertise(struct repository *r, struct strbuf *value)
+int ls_refs_advertise(struct repository *UNUSED(r), struct strbuf *value)
 {
 	if (value) {
 		ensure_config_read();

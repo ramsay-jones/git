@@ -12,13 +12,13 @@
 static int advertise_sid = -1;
 static int client_hash_algo = GIT_HASH_SHA1;
 
-static int always_advertise(struct repository *r,
-			    struct strbuf *value)
+static int always_advertise(struct repository *UNUSED(r),
+			    struct strbuf *UNUSED(value))
 {
 	return 1;
 }
 
-static int agent_advertise(struct repository *r,
+static int agent_advertise(struct repository *UNUSED(r),
 			   struct strbuf *value)
 {
 	if (value)
@@ -34,7 +34,7 @@ static int object_format_advertise(struct repository *r,
 	return 1;
 }
 
-static void object_format_receive(struct repository *r,
+static void object_format_receive(struct repository *UNUSED(r),
 				  const char *algo_name)
 {
 	if (!algo_name)
@@ -45,7 +45,7 @@ static void object_format_receive(struct repository *r,
 		die("unknown object format '%s'", algo_name);
 }
 
-static int session_id_advertise(struct repository *r, struct strbuf *value)
+static int session_id_advertise(struct repository *UNUSED(r), struct strbuf *value)
 {
 	if (advertise_sid == -1 &&
 	    git_config_get_bool("transfer.advertisesid", &advertise_sid))
@@ -57,7 +57,7 @@ static int session_id_advertise(struct repository *r, struct strbuf *value)
 	return 1;
 }
 
-static void session_id_receive(struct repository *r,
+static void session_id_receive(struct repository *UNUSED(r),
 			       const char *client_sid)
 {
 	if (!client_sid)
