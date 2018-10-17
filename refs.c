@@ -900,8 +900,9 @@ static void set_read_ref_cutoffs(struct read_ref_at_cb *cb,
 }
 
 static int read_ref_at_ent(struct object_id *ooid, struct object_id *noid,
-		const char *email, timestamp_t timestamp, int tz,
-		const char *message, void *cb_data)
+			   const char *UNUSED(email),
+			   timestamp_t timestamp, int tz,
+			   const char *message, void *cb_data)
 {
 	struct read_ref_at_cb *cb = cb_data;
 	int reached_count;
@@ -956,8 +957,9 @@ static int read_ref_at_ent_newest(struct object_id *UNUSED(ooid),
 }
 
 static int read_ref_at_ent_oldest(struct object_id *ooid, struct object_id *noid,
-				  const char *email, timestamp_t timestamp,
-				  int tz, const char *message, void *cb_data)
+				  const char *UNUSED(email),
+				  timestamp_t timestamp, int tz,
+				  const char *message, void *cb_data)
 {
 	struct read_ref_at_cb *cb = cb_data;
 
