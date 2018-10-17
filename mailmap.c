@@ -9,7 +9,7 @@
 #define debug_str(X) ((X) ? (X) : "(none)")
 #else
 __attribute__((format (printf, 1, 2)))
-static inline void debug_mm(const char *format, ...) {}
+static inline void debug_mm(const char *UNUSED(format), ...) {}
 static inline const char *debug_str(const char *s) { return s; }
 #endif
 
