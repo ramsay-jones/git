@@ -229,7 +229,7 @@ static int run_sequencer(int argc, const char **argv, struct replay_opts *opts)
 	return sequencer_pick_revisions(the_repository, opts);
 }
 
-int cmd_revert(int argc, const char **argv, const char *prefix)
+int cmd_revert(int argc, const char **argv, const char *UNUSED(prefix))
 {
 	struct replay_opts opts = REPLAY_OPTS_INIT;
 	int res;
@@ -242,7 +242,7 @@ int cmd_revert(int argc, const char **argv, const char *prefix)
 	return res;
 }
 
-int cmd_cherry_pick(int argc, const char **argv, const char *prefix)
+int cmd_cherry_pick(int argc, const char **argv, const char *UNUSED(prefix))
 {
 	struct replay_opts opts = REPLAY_OPTS_INIT;
 	int res;
