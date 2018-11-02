@@ -281,8 +281,10 @@ static int diffsize_consume(void *data,
 	return 0;
 }
 
-static void diffsize_hunk(void *data, long ob, long on, long nb, long nn,
-			  const char *funcline, long funclen)
+static void diffsize_hunk(void *data,
+			  long UNUSED(ob), long UNUSED(on),
+			  long UNUSED(nb), long UNUSED(nn),
+			  const char *UNUSED(func), long UNUSED(funclen))
 {
 	diffsize_consume(data, NULL, 0);
 }
