@@ -331,7 +331,7 @@ static void fn_alias_fl(const char *file, int line, const char *alias,
 }
 
 static void fn_child_start_fl(const char *file, int line,
-			      uint64_t us_elapsed_absolute,
+			      uint64_t UNUSED(us_elapsed_absolute),
 			      const struct child_process *cmd)
 {
 	const char *event_name = "child_start";
@@ -363,7 +363,8 @@ static void fn_child_start_fl(const char *file, int line,
 }
 
 static void fn_child_exit_fl(const char *file, int line,
-			     uint64_t us_elapsed_absolute, int cid, int pid,
+			     uint64_t UNUSED(us_elapsed_absolute),
+			     int cid, int pid,
 			     int code, uint64_t us_elapsed_child)
 {
 	const char *event_name = "child_exit";
@@ -384,7 +385,8 @@ static void fn_child_exit_fl(const char *file, int line,
 }
 
 static void fn_child_ready_fl(const char *file, int line,
-			      uint64_t us_elapsed_absolute, int cid, int pid,
+			      uint64_t UNUSED(us_elapsed_absolute),
+			      int cid, int pid,
 			      const char *ready, uint64_t us_elapsed_child)
 {
 	const char *event_name = "child_ready";
@@ -405,7 +407,7 @@ static void fn_child_ready_fl(const char *file, int line,
 }
 
 static void fn_thread_start_fl(const char *file, int line,
-			       uint64_t us_elapsed_absolute)
+			       uint64_t UNUSED(us_elapsed_absolute))
 {
 	const char *event_name = "thread_start";
 	struct json_writer jw = JSON_WRITER_INIT;
@@ -419,7 +421,7 @@ static void fn_thread_start_fl(const char *file, int line,
 }
 
 static void fn_thread_exit_fl(const char *file, int line,
-			      uint64_t us_elapsed_absolute,
+			      uint64_t UNUSED(us_elapsed_absolute),
 			      uint64_t us_elapsed_thread)
 {
 	const char *event_name = "thread_exit";
@@ -435,7 +437,8 @@ static void fn_thread_exit_fl(const char *file, int line,
 	jw_release(&jw);
 }
 
-static void fn_exec_fl(const char *file, int line, uint64_t us_elapsed_absolute,
+static void fn_exec_fl(const char *file, int line,
+		       uint64_t UNUSED(us_elapsed_absolute),
 		       int exec_id, const char *exe, const char **argv)
 {
 	const char *event_name = "exec";
@@ -456,8 +459,8 @@ static void fn_exec_fl(const char *file, int line, uint64_t us_elapsed_absolute,
 }
 
 static void fn_exec_result_fl(const char *file, int line,
-			      uint64_t us_elapsed_absolute, int exec_id,
-			      int code)
+			      uint64_t UNUSED(us_elapsed_absolute),
+			      int exec_id, int code)
 {
 	const char *event_name = "exec_result";
 	struct json_writer jw = JSON_WRITER_INIT;
@@ -504,7 +507,7 @@ static void fn_repo_fl(const char *file, int line,
 }
 
 static void fn_region_enter_printf_va_fl(const char *file, int line,
-					 uint64_t us_elapsed_absolute,
+					 uint64_t UNUSED(us_elapsed_absolute),
 					 const char *category,
 					 const char *label,
 					 const struct repository *repo,
@@ -531,7 +534,7 @@ static void fn_region_enter_printf_va_fl(const char *file, int line,
 }
 
 static void fn_region_leave_printf_va_fl(
-	const char *file, int line, uint64_t us_elapsed_absolute,
+	const char *file, int line, uint64_t UNUSED(us_elapsed_absolute),
 	uint64_t us_elapsed_region, const char *category, const char *label,
 	const struct repository *repo, const char *fmt, va_list ap)
 {
