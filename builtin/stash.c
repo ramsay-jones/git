@@ -327,7 +327,7 @@ static int is_path_a_directory(const char *path)
 }
 
 static void add_diff_to_buf(struct diff_queue_struct *q,
-			    struct diff_options *options,
+			    struct diff_options *UNUSED(options),
 			    void *data)
 {
 	int i;
@@ -1426,7 +1426,7 @@ done:
 	return ret;
 }
 
-static int create_stash(int argc, const char **argv, const char *prefix)
+static int create_stash(int argc, const char **argv, const char *UNUSED(prefix))
 {
 	int ret = 0;
 	struct strbuf stash_msg_buf = STRBUF_INIT;
