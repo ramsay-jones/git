@@ -1811,7 +1811,7 @@ static int launchctl_add_plists(void)
 	       launchctl_schedule_plist(exec_path, SCHEDULE_WEEKLY);
 }
 
-static int launchctl_update_schedule(int run_maintenance, int fd)
+static int launchctl_update_schedule(int run_maintenance, int UNUSED(fd))
 {
 	if (run_maintenance)
 		return launchctl_add_plists();
@@ -1992,7 +1992,7 @@ static int schtasks_schedule_tasks(void)
 	       schtasks_schedule_task(exec_path, SCHEDULE_WEEKLY);
 }
 
-static int schtasks_update_schedule(int run_maintenance, int fd)
+static int schtasks_update_schedule(int run_maintenance, int UNUSED(fd))
 {
 	if (run_maintenance)
 		return schtasks_schedule_tasks();
@@ -2319,7 +2319,7 @@ static int systemd_timer_setup_units(void)
 	return ret;
 }
 
-static int systemd_timer_update_schedule(int run_maintenance, int fd)
+static int systemd_timer_update_schedule(int run_maintenance, int UNUSED(fd))
 {
 	if (run_maintenance)
 		return systemd_timer_setup_units();
