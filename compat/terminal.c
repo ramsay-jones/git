@@ -33,7 +33,7 @@ void restore_term(void)
 	term_fd = -1;
 }
 
-int save_term(int full_duplex)
+int save_term(int UNUSED(full_duplex))
 {
 	if (term_fd < 0)
 		term_fd = open("/dev/tty", O_RDWR);
