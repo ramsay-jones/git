@@ -1767,9 +1767,31 @@ static enum path_treatment treat_directory(struct dir_struct *dir,
 
 	if ((dir->flags & DIR_SKIP_NESTED_GIT) ||
 		!(dir->flags & DIR_NO_GITLINKS)) {
+		/*
+		 * Determine if `dirname` is a nested repo by confirming that:
+		 * 1) we are in a nonbare repository, and
+		 * 2) `dirname` is not an immediate parent of `the_repository->gitdir`,
+		 *    which could occur if the `worktree` location was manually
+		 *    configured by the user; see t2205 testcases 1a-1d for examples
+		 *    where this matters
+		 */
 		struct strbuf sb = STRBUF_INIT;
 		strbuf_addstr(&sb, dirname);
 		nested_repo = is_nonbare_repository_dir(&sb);
+
+		if (nested_repo) {
+			char *real_dirname, *real_gitdir;
+			strbuf_reset(&sb);
+			strbuf_addstr(&sb, dirname);
+			strbuf_complete(&sb, '/');
+			strbuf_addstr(&sb, ".git");
+			real_dirname = real_pathdup(sb.buf, 0);
+			real_gitdir = real_pathdup(the_repository->gitdir, 0);
+
+			nested_repo = !!strcmp(real_dirname, real_gitdir);
+			free(real_gitdir);
+			free(real_dirname);
+		}
 		strbuf_release(&sb);
 	}
 	if (nested_repo)
