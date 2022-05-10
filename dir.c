@@ -1737,7 +1737,7 @@ static enum path_treatment treat_directory(struct dir_struct *dir,
 	 */
 	enum path_treatment state;
 	int matches_how = 0;
-	int nested_repo = 0, check_only, stop_early;
+	int check_only, stop_early;
 	int old_ignored_nr, old_untracked_nr;
 	/* The "len-1" is to strip the final '/' */
 	enum exist_status status = directory_exists_in_index(istate, dirname, len-1);
@@ -1775,6 +1775,7 @@ static enum path_treatment treat_directory(struct dir_struct *dir,
 		 *    configured by the user; see t2205 testcases 1a-1d for examples
 		 *    where this matters
 		 */
+		int nested_repo;
 		struct strbuf sb = STRBUF_INIT;
 		strbuf_addstr(&sb, dirname);
 		nested_repo = is_nonbare_repository_dir(&sb);
@@ -1793,10 +1794,12 @@ static enum path_treatment treat_directory(struct dir_struct *dir,
 			free(real_dirname);
 		}
 		strbuf_release(&sb);
+
+		if (nested_repo) {
+			return ((dir->flags & DIR_SKIP_NESTED_GIT) ? path_none :
+				(excluded ? path_excluded : path_untracked));
+		}
 	}
-	if (nested_repo)
-		return ((dir->flags & DIR_SKIP_NESTED_GIT) ? path_none :
-			(excluded ? path_excluded : path_untracked));
 
 	if (!(dir->flags & DIR_SHOW_OTHER_DIRECTORIES)) {
 		if (excluded &&
