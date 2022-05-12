@@ -533,7 +533,7 @@ static int add_file_cb(const struct option *opt, const char *arg, int unset)
 		if (!S_ISREG(info->stat.st_mode))
 			die(_("Not a regular file: %s"), path);
 		info->content = NULL; /* read the file later */
-	} else {
+	} else if (!strcmp(opt->long_name, "add-file-with-content")) {
 		struct strbuf buf = STRBUF_INIT;
 		const char *p = arg;
 
@@ -560,6 +560,8 @@ static int add_file_cb(const struct option *opt, const char *arg, int unset)
 		info->stat.st_mode = S_IFREG | 0644;
 		info->content = xstrdup(p + 1);
 		info->stat.st_size = strlen(info->content);
+	} else {
+		BUG("add_file_cb() called for %s", opt->long_name);
 	}
 	item = string_list_append_nodup(&args->extra_files, path);
 	item->util = info;
